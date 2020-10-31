@@ -10,12 +10,13 @@ import bookmarkList from './bookmark'
 
 
 const main = () => {
-  API.getBookmarks()
-    .then((bookmarks) => {
-      bookmarks.forEach((bookmark => {console.log(bookmark); store.addBookmark(bookmark)}))
-      bookmarkList.bindEventListeners()
-      bookmarkList.render()
+  API.getBookmarks().then((bookmarks) => {
+    bookmarks.forEach((bookmark) => {
+      store.addBookmark(bookmark)
     })
+    bookmarkList.bindEventListeners()
+    bookmarkList.render()
+  })
 }
 
 $(main)

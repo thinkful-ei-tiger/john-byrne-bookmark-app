@@ -11,7 +11,7 @@ const id = 0
 
 
 const findById = function (id) {
-  return this.bookmarks.find(currentBookmark => currentBookmark.id === id);
+  return bookmarks.find(currentBookmark => currentBookmark.id === id);
 }
 
 const addBookmark = function (bookmark) {
@@ -22,19 +22,19 @@ const addBookmark = function (bookmark) {
   this.bookmarks.push(bookmark);
 }
 
-function findAndUpdate(id, newData) {
-  const currentBookmark = this.findById(id);
-  Object.assign(currentBookmark, newData);
-}
-
-
 const findAndDelete = function (id) {
   this.bookmarks = this.bookmarks.filter(currentBookmark => currentBookmark.id !== id);
 }
 
-const toggleExpand = function (currentBookmark, arg) {
-  currentBookmark 
+function findAndUpdate(id, newData) {
+  const currentBookmark = findById(id);
+  Object.assign(currentBookmark, newData);
 }
+
+const toggleExpand = function (currentBookmark) {
+  console.log("store CB", currentBookmark);
+  findAndUpdate(currentBookmark.id, { expanded: !currentBookmark.expanded });
+};
 
 export default {
   bookmarks,
@@ -47,6 +47,7 @@ export default {
   id,
   addBookmark,
   findById,
-  findAndUpdate,
   findAndDelete,
-};
+  findAndUpdate,
+  toggleExpand
+}

@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 /* eslint-disable no-console */
 /* eslint-disable semi */
 import $ from 'jquery'
@@ -9,35 +10,31 @@ import store from './store'
 
 const grabBookmarkMenu = () => {
   return `
+  <center>
   <div id="js-menu">
-    <button type="button" id="new-btn">New</button>
-    <div>  
+    <button type="button" id="new-btn">New Bookmark</button>  
       <label for="stars">Filter By:</label>
       <select name="star-rating" id="rating">
-      <option value="5">5 Stars</option>
+      <option value="0">Show All</option>
       <option value="4">4 Stars & Up</option>
       <option value="3">3 Stars & Up</option>
       <option value="2">2 Stars & Up</option>
       <option value="1">1 Star & Up</option>
       </select>
-    <div>  
-  </div>` 
+  </div>
+  </center>` 
 }
 
 const addBookmark = () => {
-  return`<form id="js-add">
-    <label for="add-new">Title:</label><br>
-    <input type="text" name="title" id="add-title"><br>
-    <label for="add-title">Site Link:</label><br>
-    <input type="text" name="url" id="js-site-link"><br>
-    <label for="add-desc">Description:</label><br>
-    <input type="text" name="desc" id="add-desc" size="30"><br>
-    <button type="button" id="cancel-btn">Cancel</button>
-    <button type="button" id="create-btn">Create</button>
-
-    <h2>Link Description</h2>
-    <hr>
-    <div class="stars">
+  return `<section class="project-card project-card:hover">
+    <form id="js-add">
+      <label for="add-new">Title:</label><br>
+      <input type="text" name="title" id="add-title"><br>
+      <label for="add-title">Site Link:</label><br>
+      <input type="text" name="url" id="js-site-link"><br>
+      <label for="add-desc">Description:</label><br>
+      <input type="text" name="desc" id="add-desc" size="30"><br>
+      <div class="stars">
         <input id="star-1" type="radio" name="rating" value="1">
         <label class="star star-1" for="star-1"></label>
         <input id="star-2" type="radio" name="rating" value="2">
@@ -48,24 +45,46 @@ const addBookmark = () => {
         <label class="star star-4" for="star-4"></label>
         <input id="star-5" type="radio" name="rating" value="5">
         <label class="star star-5" for="star-5"></label>
-      </form>
-    </div>
-  <form>`
-}
+      </div>
+      <button type="button" id="cancel-btn">Cancel</button>
+      <button type="button" id="create-btn">Create</button>
+    </form>
+    </section>`;
+};
 
 const grabBookmarkResult = (bookmark) => {
-  if(bookmark.rating < store.rating ) {
-    return ''
+  if (bookmark.rating < store.rating) {
+    return '';
   }
-  if(bookmark.expanded) {
-    return `<div class="js-bookmark-element" data-bookmark-id="${bookmark.id}">
-      <div id="bookmark-title">${bookmark.title}${bookmark.rating}</div><button type="button" id="delete-btn">Delete</button><button type="button" class="expand-collapse">Expand</button></div>`
+  if (bookmark.expanded) {
+    return `
+    <section class="project-card">
+    <div class="js-bookmark-element" data-bookmark-id="${bookmark.id}" style="margin: 8px 0;">
+      <div id="bookmark-title">
+        <h2>${bookmark.title} - ${bookmark.rating}</h2>
+      </div>
+      <div>
+        <p>${bookmark.desc}</p>
+        <br>
+        <a href="${bookmark.url}" class="siteButton">Visit Site</a>
+      </div>
+      <button type="button" id="delete-btn" style="margin: 4px;">Delete</button>
+      <button type="button" class="expand-collapse">Collapse</button></div>
+      </section>`
   } else {
-    return `<div class="js-bookmark-element" data-bookmark-id="${bookmark.id}">
-    <div id="bookmark-title">${bookmark.title}${bookmark.rating}</div><button type="button" id="delete-btn">Delete</button><button type="button" class="expand-collapse">Collapse</button>
-    <div class>${bookmark.desc}<br>${bookmark.url}</div>`
+    return `
+    <section class="project-card">
+    <div class="js-bookmark-element" data-bookmark-id="${bookmark.id}" style="margin: 8px 0;">
+      <div id="bookmark-title">
+        <h2>${bookmark.title} - ${bookmark.rating}</h2>
+      </div>
+      <button type="button" id="delete-btn" style="margin: 4px;">Delete</button>
+
+      <button type="button" class="expand-collapse">Expand</button>
+    </div>
+    </section?`
   }
-}
+};
 
 
 const render = () => {
@@ -118,12 +137,11 @@ const submitNewBookmark = () => {
         store.adding = false
         render()
       })
+      .catch((error) => {
+        alert(error.message)
+      })
   })
 }
-
-// const findError = () => {
-//   $()
-// }
 
 const handleCancelClick = () => {
   $('#js-add-item').on('click', '#cancel-btn', (event) => {
@@ -140,18 +158,16 @@ const getBookmarkIdFromElement = (bookmarks) => {
 
 const handleExpand = () => {
   $('#js-results-list').on('click', '.expand-collapse', (event) => {
-    event.preventDefault()
-    console.log(event)
+    event.preventDefault();
+    console.log("handleExpand event", event.currentTarget);
     const bookmarkId = $(event.currentTarget)
       .closest('.js-bookmark-element')
-      .find('#data-bookmark-id')
-      .attr('id')
-      console.log(bookmarkId)
-    const currentBookmark = store.findById(bookmarkId)
-    
-    render()  
-  })  
-}
+      .attr('data-bookmark-id');
+    const currentBookmark = store.findById(bookmarkId);
+    store.toggleExpand(currentBookmark);
+    render();
+  });
+};
 
 const handleDeleteClicked = () => {
   $('#js-results-list').on('click', '#delete-btn', (event) => {
@@ -162,9 +178,7 @@ const handleDeleteClicked = () => {
         render()
       })
       .catch((error) => {
-        console.log(error)
-        store.setError(error.message)
-        generateError()
+        alert(error.message)
       })
   })
 }
@@ -172,7 +186,11 @@ const handleDeleteClicked = () => {
 const handleRatingFilter = () => {
   $('#js-menu').on('change', '#rating', event => {
     event.preventDefault()
-    store.rating =$('#rating').val()
+    store.rating = event.currentTarget.value
+    if(store.rating === 1) {
+      const filteredBookmarks = store.bookmarks.filter(bookmark => bookmark.rating >=1)
+      return filteredBookmarks
+    }
     render()
   })
 }
