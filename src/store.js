@@ -1,18 +1,15 @@
 /* eslint-disable quotes */
 /* eslint-disable semi */
-const bookmarks = []
-const adding = false
-const error = null
-const errorMessage = ""
-const rating = 0
-const edit = false
-const expanded = false
-const id = 0
-
+const bookmarks = [];
+const adding = false;
+const error = null;
+const rating = 0;
+const currentRating = 0;
+const expanded = false;
 
 const findById = function (id) {
-  return bookmarks.find(currentBookmark => currentBookmark.id === id);
-}
+  return bookmarks.find((currentBookmark) => currentBookmark.id === id);
+};
 
 const addBookmark = function (bookmark) {
   let expandedObject = {
@@ -20,19 +17,20 @@ const addBookmark = function (bookmark) {
   };
   Object.assign(bookmark, expandedObject);
   this.bookmarks.push(bookmark);
-}
+};
 
 const findAndDelete = function (id) {
-  this.bookmarks = this.bookmarks.filter(currentBookmark => currentBookmark.id !== id);
-}
+  this.bookmarks = this.bookmarks.filter(
+    (currentBookmark) => currentBookmark.id !== id
+  );
+};
 
-function findAndUpdate(id, newData) {
+function findAndUpdate(id, newEntry) {
   const currentBookmark = findById(id);
-  Object.assign(currentBookmark, newData);
+  Object.assign(currentBookmark, newEntry);
 }
 
 const toggleExpand = function (currentBookmark) {
-  console.log("store CB", currentBookmark);
   findAndUpdate(currentBookmark.id, { expanded: !currentBookmark.expanded });
 };
 
@@ -40,14 +38,12 @@ export default {
   bookmarks,
   adding,
   error,
-  errorMessage,
   rating,
-  edit,
+  currentRating,
   expanded,
-  id,
   addBookmark,
   findById,
   findAndDelete,
   findAndUpdate,
-  toggleExpand
-}
+  toggleExpand,
+};

@@ -1,9 +1,25 @@
-h1, h2 {
+h1 {
   text-align: center;
-  font-family: 'Staatliches', cursive;
+  font-family: "Staatliches", cursive;
+  color: white;
+  background-color: blue;
+  border-radius: 5px;
 }
 
+h2 {
+  text-align: center;
+  font-family: "Staatliches", cursive;
+  color: blue;
+}
 
+p {
+  font-family: "Montserrat", sans-serif;
+}
+
+.form-center {
+  text-align: center;
+  margin: 20px;
+}
 
 .project-card {
   text-align: center;
@@ -15,63 +31,8 @@ h1, h2 {
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
 
-
-/*url btn */
-.siteButton {
-	box-shadow:inset 0px 1px 0px 0px #54a3f7;
-	background:linear-gradient(to bottom, #007dc1 5%, #0061a7 100%);
-	background-color:#007dc1;
-	border-radius:3px;
-	border:1px solid #124d77;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:Arial;
-	font-size:13px;
-	padding:6px 24px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #154682;
-}
-.siteButton:hover {
-	background:linear-gradient(to bottom, #0061a7 5%, #007dc1 100%);
-	background-color:#0061a7;
-}
-.myButton:active {
-	position:relative;
-	top:1px;
-}
-
-
-/* Radio Buttons */
-input[type=radio].with-font {
-  border: 0;
-  clip: rect(0 0 0 0);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  width: 1px;
-}
-  
-input[type=radio].with-font + label:before {
-  font-family: FontAwesome;
-  display: inline-block;
-  content: "\f1db";
-  letter-spacing: 10px;
-  font-size: 1.2em;
-  color: #535353;
-}
-
-input[type=radio].with-font:checked + label:before {
-  content: "\f00c";
-  font-size: 1.2em;
-  color: darkgreen;
-  letter-spacing: 5px;
-  width: 35px, 5px;
-}
-
-input[type=radio].with-font:focus + label:before {
-  font-weight: bold;
-  color:orange;
+@media all and (min-width: 800px) {
+  .form-center {
+    text-align: center;
+  }
 }

@@ -1,22 +1,22 @@
 /* eslint-disable no-console */
 /* eslint-disable semi */
-import $ from 'jquery'
+import $ from "jquery";
 
-import './style.css'
+import "./style.css";
 
-import API from './API'
-import store from './store'
-import bookmarkList from './bookmark'
-
+import API from "./API";
+import store from "./store";
+import bookmarkList from "./bookmark";
 
 const main = () => {
+  bookmarkList.initialRender();
   API.getBookmarks().then((bookmarks) => {
     bookmarks.forEach((bookmark) => {
-      store.addBookmark(bookmark)
-    })
-    bookmarkList.bindEventListeners()
-    bookmarkList.render()
-  })
-}
+      store.addBookmark(bookmark);
+    });
+    bookmarkList.bindEventListeners();
+    bookmarkList.render();
+  });
+};
 
-$(main)
+$(main);
