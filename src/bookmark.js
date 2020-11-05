@@ -54,7 +54,7 @@ const grabBookmarkResult = (bookmark) => {
       <div>
         <p>${bookmark.desc}</p>
         <br>
-        <button onclick="${bookmark.url}">Visit Site</button>
+        <a href="${bookmark.url}">Visit Site</a>
       </div>
       <button type="button" id="delete-btn" style="margin: 4px;">Delete</button>
       <button type="button" class="expand-collapse">Collapse</button></div>
