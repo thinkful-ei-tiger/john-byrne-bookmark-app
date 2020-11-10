@@ -7,7 +7,7 @@ Live Link: https://thinkful-ei-tiger.github.io/john-byrne-bookmark-app/
 - See bookmarks that they've already submitted to Thinkful's API. They appear in a collapsed form showing only the title and rating.
 - User may click expand button that reveals the bookmark description and a link to the bookmarked website which opens in a new tab.
 - User may delete bookmarks from the list.
-- User may filter bookmarks by rating
+- User may filter bookmarks by rating.
 
 
 John Byrne
