@@ -108,7 +108,8 @@ const newBookmarkClick = () => {
 }
 
 const submitNewBookmark = () => {
-  $('#js-add-item').on('submit', (event) => {
+  $('main').on('submit', (event) => {
+    alert('EVENT', event.currentTarget)
     event.preventDefault()
     $.fn.extend({
       serializeJSON: function () {
@@ -120,7 +121,8 @@ const submitNewBookmark = () => {
         return JSON.stringify(jsFormData)
       },
     })
-    const jsonStringifiedFormData = $('#js-add').serializeJSON()
+    const jsonStringifiedFormData = $('form').serializeJSON()
+    alert('Stringified Form Data', jsonStringifiedFormData)
     API.createBookmark(jsonStringifiedFormData)
       .then((data) => {
         data['expand'] = false
