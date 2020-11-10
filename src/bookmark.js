@@ -57,7 +57,7 @@ const grabBookmarkResult = (bookmark) => {
       <div>
         <p>${bookmark.desc}</p>
         <br>
-        <a href="${bookmark.url}"><p>Visit Site</p></a>
+        <a href="${bookmark.url}" target="_blank"><p>Visit Site</p></a>
       </div>
       <button type="button" id="delete-btn" style="margin: 4px;">Delete</button>
       <button type="button" class="expand-collapse">Collapse</button></div>
@@ -109,7 +109,6 @@ const newBookmarkClick = () => {
 
 const submitNewBookmark = () => {
   $('main').on('submit', (event) => {
-    alert('EVENT', event.currentTarget)
     event.preventDefault()
     $.fn.extend({
       serializeJSON: function () {
@@ -122,7 +121,6 @@ const submitNewBookmark = () => {
       },
     })
     const jsonStringifiedFormData = $('form').serializeJSON()
-    alert('Stringified Form Data', jsonStringifiedFormData)
     API.createBookmark(jsonStringifiedFormData)
       .then((data) => {
         data['expand'] = false
